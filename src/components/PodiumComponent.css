@@ -1,0 +1,53 @@
+.podium-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 20px;
+    height: 300px;
+    margin-top: 90px;
+}
+
+.podium {
+    width: 240px; /* Kürsüleri büyüttük */
+    text-align: center;
+    padding: 8px;
+    color: white;
+    border-radius: 15px;
+    position: relative;
+    background-color: #008cff; /* Mavi renk */
+    
+}
+
+.first-place {
+    height: 280px;
+}
+
+.second-place {
+    height: 200px;
+}
+
+.third-place {
+    height: 140px;
+}
+
+.attack-name {
+    position: absolute;
+    top: -80px; /* İsimleri üstte olacak şekilde ayarladık */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 25px;
+    font-weight: bold;
+    color: black; /* Siyah ve kalın yazı */
+}
+
+.medal-icon {
+    font-size: 50px; /* Emojileri büyüttük */
+    display: block;
+    margin-top: 10px;
+}
+
+.attack-count {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 12px; /* Saldırı adetlerini madalyaların hemen altına aldık */
+}

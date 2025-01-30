@@ -7,6 +7,7 @@ import Reports from './pages/Reports';
 import About from './pages/About';
 
 function App() {
+  
   return (
     <div>
       <Navbar/>
