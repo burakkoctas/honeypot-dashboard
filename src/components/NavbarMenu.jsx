@@ -8,10 +8,6 @@ const items = [
         key: "home"
     },
     {
-        label: "Reports",
-        key: "reports",
-    },
-    {
         label: "About",
         key: "about",
     },

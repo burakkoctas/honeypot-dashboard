@@ -8,7 +8,7 @@ const AttackInsights = ({ attackType }) => {
     useEffect(() => {
         fetchAttackData(attackType, "by-hour")
             .then((data) => {
-                console.log(`API Response (${attackType} by-hour):`, data); // API verisini kontrol et
+                console.log(`API Response (${attackType} by-hour):`, data); 
 
                 if (data && Object.keys(data).length > 0) {
                     // En çok saldırılan saat
@@ -25,9 +25,17 @@ const AttackInsights = ({ attackType }) => {
             .catch((error) => console.error(`API Fetch Error (${attackType} by-hour):`, error));
     }, [attackType]);
 
+    // Baş harfleri büyük yapmak için attackType biçimlendirme fonksiyonu
+    const formatAttackType = (type) => {
+        return type
+            .split("-") // Kelimeleri ayır
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Her kelimenin ilk harfini büyüt
+            .join(" "); // Kelimeleri birleştir
+    };
+
     return (
         <div className="p-6 w-[300px] shadow-md rounded-lg bg-blue-100 border border-blue-300">
-            <h3 className="text-xl font-bold text-blue-900 text-center mb-4">📊 {attackType.replace("-", " ")} Insights</h3>
+            <h3 className="text-xl font-bold text-blue-900 text-center mb-4">📊 {formatAttackType(attackType)} Insights</h3>
             {maxHour && minHour ? (
                 <>
                     <p className="text-lg font-semibold text-gray-800">

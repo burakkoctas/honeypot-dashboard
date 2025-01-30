@@ -154,3 +154,73 @@ export const fetchAttackData = async (attackType, endpoint) => {
         return null;
     }
 };
+// **Attacker Login Success API'sini Çağırma**
+export const fetchAttackerLoginSuccess = async () => {
+    try {
+        const response = await axios.get(`${API_BASE_URL}/attacker-login-success`);
+        return response.data;
+    } catch (error) {
+        console.error("API ERROR (attacker-login-success):", error);
+        return null;
+    }
+};
+
+export const fetchSessionProtocols = async () => {
+    try {
+        const response = await axios.get("http://127.0.0.1:8000/analyze/session-connect/top-protocols");
+        return response.data;
+    } catch (error) {
+        console.error("API ERROR (session-connect/top-protocols):", error);
+        return [];
+    }
+};
+
+export const fetchCommandInjectionByHour = async () => {
+    try {
+        const response = await axios.get("http://127.0.0.1:8000/analyze/command-injection/by-hour");
+        return response.data;
+    } catch (error) {
+        console.error("API ERROR (command-injection/by-hour):", error);
+        return {};
+    }
+};
+
+export const fetchCommandInjectionTopInputs = async () => {
+    try {
+        const response = await axios.get("http://127.0.0.1:8000/analyze/command-injection/top-inputs");
+        return response.data;
+    } catch (error) {
+        console.error("API ERROR (command-injection/top-inputs):", error);
+        return [];
+    }
+};
+
+export const fetchCommandInjectionTopCountries = async () => {
+    try {
+        const response = await axios.get("http://127.0.0.1:8000/analyze/command-injection/top-countries");
+        return response.data;
+    } catch (error) {
+        console.error("API ERROR (command-injection/top-countries):", error);
+        return [];
+    }
+};
+
+export const fetchAttackByHour = async (attackType) => {
+    try {
+        const response = await axios.get(`http://127.0.0.1:8000/analyze/${attackType}/by-hour`);
+        return response.data;
+    } catch (error) {
+        console.error(`API ERROR (${attackType}/by-hour):`, error);
+        return {};
+    }
+};
+
+export const fetchTopList = async (attackType, endpoint) => {
+    try {
+        const response = await axios.get(`http://127.0.0.1:8000/analyze/${attackType}/${endpoint}`);
+        return response.data;
+    } catch (error) {
+        console.error(`API ERROR (${attackType}/${endpoint}):`, error);
+        return [];
+    }
+};

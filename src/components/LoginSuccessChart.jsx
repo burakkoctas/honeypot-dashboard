@@ -2,29 +2,30 @@ import React, { useEffect, useState } from 'react';
 import { fetchAttackData } from '../api/api';
 import { PieChart, Pie, Tooltip, Cell, ResponsiveContainer } from 'recharts';
 
-const LoginSuccessChart = () => {
+const LoginSuccessChart = ({ attackType }) => {
     const [loginData, setLoginData] = useState(null);
 
     useEffect(() => {
-        fetchAttackData("login-success-rate", "")
+        fetchAttackData("attacker-login-success", "")
             .then((data) => {
-                console.log("API Response (login-success-rate):", data); // API'den gelen veriyi kontrol et
-                if (data && data.successful_logins !== undefined && data.failed_logins !== undefined) {
-                    setLoginData(data);
+                console.log("API Response (attacker-login-success):", data); 
+
+                if (data && data[attackType]) {
+                    setLoginData(data[attackType]);
                 } else {
-                    console.error("Invalid data format received:", data);
+                    console.error(`Invalid attackType key (${attackType}):`, data);
                 }
             })
-            .catch((error) => console.error("API Fetch Error (login-success-rate):", error));
-    }, []);
+            .catch((error) => console.error("API Fetch Error (attacker-login-success):", error));
+    }, [attackType]);
 
     if (!loginData) {
         return <p className="text-lg font-semibold text-gray-500">⏳ Loading login success rate...</p>;
     }
 
     const pieData = [
-        { name: "Successful Logins", value: loginData.successful_logins },
-        { name: "Failed Logins", value: loginData.failed_logins }
+        { name: "Successful", value: loginData.successful_logins },
+        { name: "Failed", value: loginData.failed_logins }
     ];
     
     const COLORS = ["#00C49F", "#FF8042"];
@@ -36,10 +37,18 @@ const LoginSuccessChart = () => {
 
     const renderLabel = ({ name, value }) => `${name}: ${getPercentage(value)}`;
 
+    // Baş harfleri büyük yapmak için attackType biçimlendirme fonksiyonu
+    const formatAttackType = (type) => {
+        return type
+            .split("_") // Kelimeleri ayır
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1)) // Her kelimenin ilk harfini büyüt
+            .join(" "); // Kelimeleri birleştir
+    };
+
     return (
         <div className="flex flex-col items-center">
-            <h3 className="text-xl font-bold text-gray-800 mb-4">🔍 Login Success Rate</h3>
-            <ResponsiveContainer width={300} height={300}>
+            <h3 className="text-xl font-bold text-gray-800 mb-4">🔍 {formatAttackType(attackType)} Login Success Rate</h3>
+            <ResponsiveContainer width={405} height={320}>
                 <PieChart>
                     <Pie
                         data={pieData}
